@@ -1,9 +1,10 @@
 import "./App.css";
 import Header from "./Header.js";
 import Room from "./Room.js";
+import { useImmer } from "use-immer";
 
 export default function App() {
-  const rooms = [
+  const [rooms, updateRooms] = useImmer([
     {
       text: "Küche",
       description: "Herdplatte nicht vergessen",
@@ -22,20 +23,28 @@ export default function App() {
       isDescriptionVisible: true,
       isClean: false,
     },
-  ];
+  ]);
 
   return (
     <main className="App">
       <Header>Happy Cleaning</Header>
-      {rooms.map(({ text, description, isDescriptionVisible, isClean }) => (
-        <Room
-          key={text}
-          text={text}
-          description={description}
-          isDescriptionVisible={isDescriptionVisible}
-          isClean={isClean}
-        />
-      ))}
+      {rooms.map(
+        ({ text, description, isDescriptionVisible, isClean }, index) => (
+          <Room
+            key={text}
+            text={text}
+            description={description}
+            isDescriptionVisible={isDescriptionVisible}
+            isClean={isClean}
+            toggleStatus={(event) => {
+              event.stopPropagation();
+              updateRooms((draft) => {
+                draft[index].isClean = !isClean;
+              });
+            }}
+          />
+        )
+      )}
     </main>
   );
 }
