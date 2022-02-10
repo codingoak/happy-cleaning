@@ -26,5 +26,4 @@ const NavigationButton = styled.button`
   border-radius: 13px 13px 0 0;
   padding: 10px 25px;
   width: 50%;
-  background: gray;
 `;
