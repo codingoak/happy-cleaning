@@ -1,8 +1,8 @@
-import "./App.css";
 import Header from "./Header.js";
 import Room from "./Room.js";
 import Navigation from "./Navigation.js";
 import Flatmates from "./Flatmates.js";
+import styled from "styled-components/macro";
 import { useState } from "react";
 import { useImmer } from "use-immer";
 
@@ -31,7 +31,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("Rooms"); // 'Rooms' or 'Flatmates'
 
   return (
-    <div className="App">
+    <AppContainer>
       <Header>{currentPage}</Header>
       <main>
         {currentPage === "Rooms" &&
@@ -54,8 +54,16 @@ export default function App() {
           )}
         {currentPage === "Flatmates" && <Flatmates />}
       </main>
-
       <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
-    </div>
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  padding-top: 30px;
+  color: white;
+  background-color: darkslategrey;
+  display: grid;
+  grid-template-rows: auto 1fr 48px;
+  height: 100vh;
+`;

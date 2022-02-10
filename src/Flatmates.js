@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Character from "./Character";
-import "./Flatmates.css";
 
 export default function Flatmates() {
   const [characters, setCharacters] = useState([]);
@@ -14,7 +13,7 @@ export default function Flatmates() {
   async function loadCharacters() {
     try {
       const response = await fetch(
-        "https://rickandmortyapi.com/api/characters1,2,3"
+        "https://rickandmortyapi.com/api/character/1,2,3"
       );
 
       if (response.ok) {

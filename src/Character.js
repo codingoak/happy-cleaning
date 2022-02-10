@@ -1,10 +1,20 @@
-import "./Character.css";
+import styled from "styled-components/macro";
 
 export default function Character({ name, status }) {
   return (
-    <li>
+    <Flatmate>
       <h2>{name}</h2>
-      <p> {status}</p>
-    </li>
+      <FlatmateStatus> {status}</FlatmateStatus>
+    </Flatmate>
   );
 }
+
+const Flatmate = styled.li`
+  padding: 20px;
+  margin: 30px;
+  border: 1px solid #ddd;
+`;
+
+const FlatmateStatus = styled.p`
+  margin-top: 10px;
+`;
