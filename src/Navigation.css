@@ -1,0 +1,15 @@
+.Navigation {
+  margin-left: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.Navigation__button {
+  border: none;
+  border-radius: 3px;
+  padding: 10px 25px;
+}
+
+.Navigation__button--active {
+  background: green;
+}

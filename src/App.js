@@ -1,10 +1,13 @@
 import "./App.css";
 import Header from "./Header.js";
 import Room from "./Room.js";
+import Navigation from "./Navigation.js";
+import Flatmates from "./Flatmates.js";
+import { useState } from "react";
 import { useImmer } from "use-immer";
 
 export default function App() {
-  const [rooms, updateRooms] = useImmer([
+  const [Rooms, updateRooms] = useImmer([
     {
       text: "Küche",
       description: "Herdplatte nicht vergessen",
@@ -25,26 +28,34 @@ export default function App() {
     },
   ]);
 
+  const [currentPage, setCurrentPage] = useState("Rooms"); // 'Rooms' or 'Flatmates'
+
   return (
-    <main className="App">
-      <Header>Happy Cleaning</Header>
-      {rooms.map(
-        ({ text, description, isDescriptionVisible, isClean }, index) => (
-          <Room
-            key={text}
-            text={text}
-            description={description}
-            isDescriptionVisible={isDescriptionVisible}
-            isClean={isClean}
-            toggleStatus={(event) => {
-              event.stopPropagation();
-              updateRooms((draft) => {
-                draft[index].isClean = !isClean;
-              });
-            }}
-          />
-        )
-      )}
-    </main>
+    <div className="App">
+      <Header>{currentPage}</Header>
+      <main>
+        {currentPage === "Rooms" &&
+          Rooms.map(
+            ({ text, description, isDescriptionVisible, isClean }, index) => (
+              <Room
+                key={text}
+                text={text}
+                description={description}
+                isDescriptionVisible={isDescriptionVisible}
+                isClean={isClean}
+                toggleStatus={(event) => {
+                  event.stopPropagation();
+                  updateRooms((draft) => {
+                    draft[index].isClean = !isClean;
+                  });
+                }}
+              />
+            )
+          )}
+        {currentPage === "Flatmates" && <Flatmates />}
+      </main>
+
+      <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    </div>
   );
 }
